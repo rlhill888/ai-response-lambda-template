@@ -1,5 +1,5 @@
 {
-  "name": "yofi-ai-response-lambda",
+  "name": "COMPANY_NAME_PLACEHOLDER-ai-response-lambda",
   "version": "1.0.0",
   "type": "module",
   "main": "dist/index.js",

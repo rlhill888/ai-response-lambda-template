@@ -6,7 +6,7 @@ import aiPrompt from "./lib/prompt/aiPrompt.js";
 import { createConversationMessage } from "./lib/services/conversationAndMessageService.js";
 import type { SQSEvent } from "aws-lambda";
 import { setConversationAiResponseToggle, setConversationAsCurrentlyNotBeingRespondedByAi, updateConversationMostRecentMessage, updateUserInterventionRequired } from "./lib/services/conversationService.js";
-import { ablyRest, YOFI_CHAT_CHANNEL } from "./lib/ably/ablyRest.js";
+import { ablyRest, COMPANY_NAME_PLACEHOLDER_CHAT_CHANNEL } from "./lib/ably/ablyRest.js";
 import { getAIPrompt } from "./lib/services/promptService.js";
 import generatePrompt from "./lib/prompt/aiPrompt.js";
 
@@ -39,7 +39,7 @@ export async function handler(event: SQSEvent, context: Context) {
       system: generatePrompt(prompt)
     });
 
-    // save response in db as yofi sender message
+    // save response in db as COMPANY_NAME_PLACEHOLDER sender message
     const block = response.content[0];
     const reply = block.type === "text" ? block.text : "";
     if (reply === "$!$MESSAGE_NEEDS_HUMAN_INTERVENTION$!$") {
@@ -48,7 +48,7 @@ export async function handler(event: SQSEvent, context: Context) {
       const updateUserInterventionRequiredToTrue = await updateUserInterventionRequired(conversation.conversationId, conversation.timeStamp, true)
       const toggleMessageAiResponse = await setConversationAiResponseToggle(conversation.conversationId, conversation.timeStamp, false)
 
-      const channel = ablyRest.channels.get(YOFI_CHAT_CHANNEL);
+      const channel = ablyRest.channels.get(COMPANY_NAME_PLACEHOLDER_CHAT_CHANNEL);
       
       const publishAiResponding = await channel.publish("ai-responding-to-conversation-update", {
         update: "ai-responding-to-conversation-update",
@@ -72,8 +72,8 @@ export async function handler(event: SQSEvent, context: Context) {
         conversationId: conversation.conversationId,
         body: reply,
         clientName: conversation.clientName,
-        yofiSentMessage: true,
-        yofiMemberWhoSentMessage: "Jessica - Ai Chat Bot"
+        COMPANY_NAME_PLACEHOLDERSentMessage: true,
+        COMPANY_NAME_PLACEHOLDERMemberWhoSentMessage: "Jessica - Ai Chat Bot"
       })
 
       // set the conversation as not still currently being updated by ai
@@ -88,7 +88,7 @@ export async function handler(event: SQSEvent, context: Context) {
         true
       )
 
-      const channel = ablyRest.channels.get(YOFI_CHAT_CHANNEL);
+      const channel = ablyRest.channels.get(COMPANY_NAME_PLACEHOLDER_CHAT_CHANNEL);
 
       const publishResponse = await channel.publish("conversation-update-new-message", {
         update: "conversation-update-new-message",

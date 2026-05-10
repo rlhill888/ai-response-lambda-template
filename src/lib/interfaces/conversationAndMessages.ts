@@ -3,6 +3,6 @@ export default interface ConversationAndMessages {
     conversationId: string;
     timeStamp: string;
     clientName: string;
-    yofiSentMessage: boolean;
-    yofiMemberWhoSentMessage?: string;
+    COMPANY_NAME_PLACEHOLDERSentMessage: boolean;
+    COMPANY_NAME_PLACEHOLDERMemberWhoSentMessage?: string;
 }
