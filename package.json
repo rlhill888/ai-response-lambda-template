@@ -1,10 +1,9 @@
 {
   "name": "COMPANY_NAME_PLACEHOLDER-ai-response-lambda",
   "version": "1.0.0",
-  "type": "module",
-  "main": "dist/index.mjs",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "esbuild src/index.ts --bundle --outfile=dist/index.mjs --platform=node --format=esm"
+    "build": "esbuild src/index.ts --bundle --outfile=dist/index.js --platform=node --format=cjs"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.0",
