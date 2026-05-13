@@ -2,14 +2,14 @@
   "name": "COMPANY_NAME_PLACEHOLDER-ai-response-lambda",
   "version": "1.0.0",
   "type": "module",
-  "main": "dist/index.js",
+  "main": "dist/index.mjs",
   "scripts": {
-    "build": "tsc",
-    "zip": "npm run build && cp package.json dist/package.json && cp -r node_modules dist/node_modules && cd dist && zip -r ../function.zip ."
+    "build": "esbuild src/index.ts --bundle --outfile=dist/index.mjs --platform=node --format=esm"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.0",
     "@types/node": "^22.0.0",
+    "esbuild": "^0.25.0",
     "typescript": "^5.0.0"
   },
   "dependencies": {
