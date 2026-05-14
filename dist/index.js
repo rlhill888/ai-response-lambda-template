@@ -57725,7 +57725,7 @@ async function setConversationAsCurrentlyNotBeingRespondedByAi(conversationId, t
   try {
     const result = await dynamoDB.send(
       new import_lib_dynamodb3.UpdateCommand({
-        TableName: process.env.DYNAMODB_TABLE_NAME,
+        TableName: process.env.CONVERSATIONS_DYNAMODB_TABLE_NAME,
         Key: {
           conversationId,
           timeStamp
@@ -57747,7 +57747,7 @@ async function updateUserInterventionRequired(conversationId, timeStamp, userInt
   try {
     const result = await dynamoDB.send(
       new import_lib_dynamodb3.UpdateCommand({
-        TableName: process.env.DYNAMODB_TABLE_NAME,
+        TableName: process.env.CONVERSATIONS_DYNAMODB_TABLE_NAME,
         Key: {
           conversationId,
           timeStamp
@@ -57770,7 +57770,7 @@ async function updateConversationMostRecentMessage(conversationId, timeStamp, mo
     const lastMessageTimeStamp = (/* @__PURE__ */ new Date()).toISOString();
     const result = await dynamoDB.send(
       new import_lib_dynamodb3.UpdateCommand({
-        TableName: process.env.DYNAMODB_TABLE_NAME,
+        TableName: process.env.CONVERSATIONS_DYNAMODB_TABLE_NAME,
         Key: {
           conversationId,
           timeStamp
@@ -57797,7 +57797,7 @@ async function setConversationAiResponseToggle(conversationId, timeStamp, aiAuto
   try {
     const result = await dynamoDB.send(
       new import_lib_dynamodb3.UpdateCommand({
-        TableName: process.env.DYNAMODB_TABLE_NAME,
+        TableName: process.env.CONVERSATIONS_DYNAMODB_TABLE_NAME,
         Key: {
           conversationId,
           timeStamp

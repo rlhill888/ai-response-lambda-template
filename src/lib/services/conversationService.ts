@@ -8,7 +8,7 @@ export async function setConversationAsCurrentlyNotBeingRespondedByAi(
     try {
       const result = await dynamoDB.send(
         new UpdateCommand({
-          TableName: process.env.DYNAMODB_TABLE_NAME!,
+          TableName: process.env.CONVERSATIONS_DYNAMODB_TABLE_NAME!,
           Key: {
             conversationId,
             timeStamp,
@@ -38,7 +38,7 @@ export async function setConversationAsCurrentlyNotBeingRespondedByAi(
     try {
       const result = await dynamoDB.send(
         new UpdateCommand({
-          TableName: process.env.DYNAMODB_TABLE_NAME!,
+          TableName: process.env.CONVERSATIONS_DYNAMODB_TABLE_NAME!,
           Key: {
             conversationId,
             timeStamp,
@@ -71,7 +71,7 @@ export async function setConversationAsCurrentlyNotBeingRespondedByAi(
   
       const result = await dynamoDB.send(
         new UpdateCommand({
-          TableName: process.env.DYNAMODB_TABLE_NAME!,
+          TableName: process.env.CONVERSATIONS_DYNAMODB_TABLE_NAME!,
           Key: {
             conversationId,
             timeStamp,
@@ -110,7 +110,7 @@ export async function setConversationAsCurrentlyNotBeingRespondedByAi(
     try {
       const result = await dynamoDB.send(
         new UpdateCommand({
-          TableName: process.env.DYNAMODB_TABLE_NAME!,
+          TableName: process.env.CONVERSATIONS_DYNAMODB_TABLE_NAME!,
           Key: {
             conversationId,
             timeStamp,
