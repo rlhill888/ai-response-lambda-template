@@ -1,12 +1,12 @@
 import type { Context } from "aws-lambda";
-import { client } from "./lib/anthropicApi/anthropic.js";
+import { getAnthropicClient } from "./lib/anthropicApi/anthropic.js";
 import Conversation from "./lib/interfaces/conversation.js";
 import EventInterface from "./lib/interfaces/EventInterface.js";
 import aiPrompt from "./lib/prompt/aiPrompt.js";
 import { createConversationMessage } from "./lib/services/conversationAndMessageService.js";
 import type { SQSEvent } from "aws-lambda";
 import { setConversationAiResponseToggle, setConversationAsCurrentlyNotBeingRespondedByAi, updateConversationMostRecentMessage, updateUserInterventionRequired } from "./lib/services/conversationService.js";
-import { ablyRest, COMPANY_NAME_PLACEHOLDER_CHAT_CHANNEL } from "./lib/ably/ablyRest.js";
+import { getAblyRest, COMPANY_NAME_PLACEHOLDER_CHAT_CHANNEL } from "./lib/ably/ablyRest.js";
 import { getAIPrompt } from "./lib/services/promptService.js";
 import generatePrompt from "./lib/prompt/aiPrompt.js";
 
@@ -16,6 +16,9 @@ export async function handler(event: SQSEvent, context: Context) {
 
     console.log("Event:", event);
     console.log("Request ID:", context.awsRequestId);
+
+    const [client, ablyRest] = await Promise.all([getAnthropicClient(), getAblyRest()]);
+
     const body = JSON.parse(event.Records[0].body);
     // recieve event
 
