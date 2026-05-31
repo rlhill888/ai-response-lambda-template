@@ -19,7 +19,9 @@ export async function handler(event: SQSEvent, context: Context) {
 
     const [client, ablyRest] = await Promise.all([getAnthropicClient(), getAblyRest()]);
 
-    const body = JSON.parse(event.Records[0].body);
+    for (const record of event.Records) {
+    try {
+    const body = JSON.parse(record.body);
     // recieve event
 
     //client message already created in db
@@ -114,6 +116,10 @@ export async function handler(event: SQSEvent, context: Context) {
       };
 
     }
+    } catch (recordError) {
+      console.log("Error processing record:", record, recordError)
+    }
+    } // end for loop
   } catch (error) {
     console.log("Error with ai lambda")
     throw error
